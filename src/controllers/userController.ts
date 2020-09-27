@@ -100,6 +100,19 @@ class UserController {
 
         return response.json({ message: 'Dados atualizados com sucesso.' })
     }
+
+    //rota para testar a autenticação por token
+    async rota_interna(request: Request, response: Response){
+        const repository = getRepository(User)
+        const id = request.userId
+
+        //pegando os dados do usuário na base de dados
+        const user = await repository.findOne({ where: { id: Equal(id) } })
+
+        delete user.password
+
+        return response.json(user)
+    }
 }
 
 export default new UserController()

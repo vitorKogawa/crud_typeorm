@@ -19,6 +19,6 @@
       "typeorm": "0.2.26"
    },
    "scripts": {
-      "start": "ts-node src/index.ts"
+      "start": "ts-node --transpileOnly --ignore-watch node_modules src/index.ts"
    }
 }
