@@ -113,6 +113,21 @@ class UserController {
 
         return response.json(user)
     }
+
+    async unabled_user(request: Request, response: Response){
+        const repository = getRepository(User)
+        const { isEnabled } = request.body
+        const id = request.userId
+
+        //verificando se o usuário existe na base de dados
+        const user = await repository.findOne({ where: { id: Equal(id) } })
+        if(!user)
+            return response.json({ message: 'Usuário não encontrado na base de dados.', id: id })
+        
+        user.idEnabled = isEnabled
+        await repository.save(user)
+        return response.json(user)
+    }   
 }
 
 export default new UserController()
